@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { get, click, waitForText, delay } = require("../puppeteer-better-utils");
+const { get, click, waitForText, delay } = require("./puppeteer-better-utils");
 
 const imxlinkBaseURL = process.env.LINK_ADDRESSS;
 
