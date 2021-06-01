@@ -2,7 +2,8 @@ const Puppeteer = require("puppeteer-core");
 const STANDARD_DELAY = 500;
 
 async function get(page, selector, options) {
-  await page.waitForSelector(selector, options, { timeout: 50000 });
+  await page.setDefaultTimeout(70000);
+  await page.waitForSelector(selector, options);
   const handle = await page.$(selector);
 
   if (!handle) {
