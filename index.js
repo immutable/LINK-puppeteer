@@ -33,7 +33,11 @@ class ImxLinkController {
     console.log("imxlinkPages", imxlinkPages);
     console.assert(imxlinkPages.length === 1, "Couldn't find IMX Link page!");
 
-    return imxlinkPages[0];
+    const imxLinkPage = imxlinkPages[0];
+    await imxLinkPage.evaluateOnNewDocument((envData) => {
+      window.appEnvironment = { ...envData };
+    }, { NODE_ENV = "test" });
+    return imxLinkPage;
   }
 
   async listAsset() {
