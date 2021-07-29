@@ -3,15 +3,15 @@ const { get, click } = require("./puppeteer-better-utils");
 
 const imxlinkBaseURL = process.env.LINK_ADDRESSS;
 
-const startDepositButtonSelector = 'button[data-testid="action"]';
-const connectWalletButton = 'button[data-testid="wallet-connect"]';
-const closeWalletButton = 'button[data-testid="close"]';
-const listAssetButton = 'button[data-testid="action"]';
-const withdrawButton = 'button[data-testid="action"]';
+const startDepositButtonSelector = '[data-testid="action"]';
+const connectWalletButton = '[data-testid="wallet-connect"]';
+const closeWalletButton = '[data-testid="close"]';
+const listAssetButton = '[data-testid="action"]';
+const withdrawButton = '[data-testid="action"]';
 
-const setupIMXButton = 'button[data-testid="setup-imx"]';
+const setupIMXButton = '[data-testid="setup-imx"]';
 const setupIMXCheckbox = "input";
-const finishButton = 'button[data-testid="wallet-setup-complete"]';
+const finishButton = '[data-testid="wallet-setup-complete"]';
 
 class ImxLinkController {
   browser = null;
