@@ -1,40 +1,35 @@
 require("dotenv").config();
 const { get, click } = require("./puppeteer-better-utils");
 
-const imxlinkBaseURL = process.env.LINK_ADDRESSS;
+const startDepositButtonSelector = "[data-testid=action]";
+const connectWalletButton = "[data-testid=wallet-connect]";
+const closeWalletButton = "[data-testid=close]";
+const listAssetButton = "[data-testid=action]";
+const withdrawButton = "[data-testid=action]";
 
-const startDepositButtonSelector = 'button[data-testid="action"]';
-const connectWalletButton = 'button[data-testid="wallet-connect"]';
-const closeWalletButton = 'button[data-testid="close"]';
-const listAssetButton = 'button[data-testid="action"]';
-const withdrawButton = 'button[data-testid="action"]';
-
-const setupIMXButton = 'button[data-testid="setup-imx"]';
+const setupIMXButton = "[data-testid=setup-imx]";
 const setupIMXCheckbox = "input";
-const finishButton = 'button[data-testid="wallet-setup-complete"]';
+const finishButton = '[data-testid="wallet-setup-complete"]';
 
 class ImxLinkController {
   browser = null;
+  link_env_url = "";
 
-  constructor(browser) {
+  constructor(browser, link_env_url) {
     this.browser = browser;
+    this.link_env_url = link_env_url;
+  }
+
+  pickLinkPage(page) {
+    return page.url().includes(this.link_env_url);
   }
 
   async getImxLinkPage() {
-    await this.browser.waitForTarget((target) =>
-      target.url().startsWith(imxlinkBaseURL)
-    );
-
+    await this.browser.waitForTarget(this.pickLinkPage);
     const pages = await this.browser.pages();
-    pages.map((p) => console.log(p));
-    const imxlinkPages = pages.filter((p) =>
-      p.url().startsWith(imxlinkBaseURL)
-    );
-    console.log("imxlinkPages", imxlinkPages);
+    const imxlinkPages = pages.filter(this.pickLinkPage);
     console.assert(imxlinkPages.length === 1, "Couldn't find IMX Link page!");
-
     const imxLinkPage = imxlinkPages[0];
-
     return imxLinkPage;
   }
 
