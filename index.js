@@ -20,7 +20,7 @@ class ImxLinkController {
     this.link_env_url = link_env_url;
   }
 
-  pickLinkPage(page) {
+  pickLinkPage = (page) => {
     return page.url().includes(this.link_env_url);
   }
 
